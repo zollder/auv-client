@@ -42,6 +42,7 @@ private:
 	int connfd;						//client connection descriptor
 	int portNumber;					//listening port number
 	char recvBuff[1024];
+	float recBuff[15];
 	int numBytes;
 	char *ipServer;
 

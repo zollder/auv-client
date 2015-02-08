@@ -70,18 +70,23 @@ void SocketClient::recvMsg()
 		log->error("[ERROR] Failed to Connect to Server");
 		//exit(EXIT_FAILURE);
 	}
+	//(numBytes = recv( connfd, recvBuff, sizeof(recvBuff)-1 , MSG_WAITALL ) )
 
-	while ( (numBytes = recv( connfd, recvBuff, sizeof(recvBuff)-1 , MSG_WAITALL ) ) > 0)
+	while ( (numBytes = recv( connfd, recBuff, sizeof(recBuff)-1 , MSG_WAITALL ) ) > 0)
 	{
-		recvBuff[numBytes] = 0;
-		if(fputs(recvBuff, stdout) == EOF)
-			log->error("[ERROR] Fputs Failed");
-		else if(numBytes < 0)
+		recBuff[numBytes] = 0;
+		//if(fputs(recBuff, stdout) == EOF)
+		//	log->error("[ERROR] Fputs Failed");
+		//else
+		if(numBytes < 0)
 			    	log->error("[ERROR] Read Error");
 		else
 		{
-			printf("Here is the message: %s\n",recvBuff );
-			printf("Amount of Bytes received %d\n",numBytes );
+			printf("Angle:   %10.2f    %10.2f    %10.2f \n", recBuff[0], recBuff[1], recBuff[2]);
+			//for( int  x = 0; x < 3 ; x++ )
+			//	printf ("%.2f, \n", recBuff[x]);
+			//printf("Here is the message: %s\n",recBuff );
+			//printf("Amount of Bytes received %d\n",numBytes );
 		}
 
 	}
