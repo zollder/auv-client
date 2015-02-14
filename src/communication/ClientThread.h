@@ -23,7 +23,6 @@ public:
 
 	void* run();				// overrides BaseThread's run() method
 
-	void recv();
 
 	int stop();
 	int kill();

@@ -13,14 +13,14 @@ ClientThread::ClientThread()
 {
 	setThreadId( CLIENT_THREAD_ID );
 	client = new SocketClient();
-
+	flag=false;
 }
 
 ClientThread::ClientThread( int port , char *ip)
 {
 	setThreadId( CLIENT_THREAD_ID );
 	client = new SocketClient( port, ip );
-
+	flag=false;
 }
 //-----------------------------------------------------------------------------------------
 // Destructor
@@ -34,10 +34,9 @@ ClientThread::~ClientThread()
 //-----------------------------------------------------------------------------------------
 void* ClientThread::run()
 {
-	printf("[KPI::THREAD] START\n");
+	syslog(LOG_NOTICE,"[KPI::THREAD] START");
 
 	flag=true;
-	//client->recvMsg();
 
 	while(flag)
 	{
@@ -49,25 +48,15 @@ void* ClientThread::run()
 	return NULL;
 }
 
-void ClientThread::recv()
-{
-
-	while(flag)
-	{
-		client->recvMsg();
-		sleep(3);
-	}
-
-}
 
 int ClientThread::stop()
 {
-	printf("[KPI::THREAD] STOP\n");
+	syslog(LOG_NOTICE,"[KPI::THREAD] STOP");
 	return pthread_cancel( CLIENT_THREAD_ID );
 }
 
 int ClientThread::kill()
 {
-	printf("[KPI::THREAD] KILL\n");
+	syslog(LOG_NOTICE,"[KPI::THREAD] KILL");
 	return pthread_kill( CLIENT_THREAD_ID , SIGQUIT );
 }

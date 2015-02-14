@@ -33,6 +33,7 @@ void Logger::info(char * msg)
 {
 	syslog(LOG_INFO, msg);
 }
+
 void Logger::notice(char * msg)
 {
 	syslog(LOG_NOTICE, msg);

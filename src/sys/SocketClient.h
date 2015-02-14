@@ -19,6 +19,7 @@
 
 #include "Logger.h"
 
+
 /**
  * The Client program
  * The Client is used to receive the corresponding Data back to from the server through a socket connection.
@@ -41,14 +42,11 @@ private:
 
 	int connfd;						//client connection descriptor
 	int portNumber;					//listening port number
-	char recvBuff[1024];
 	float recBuff[15];
 	int numBytes;
 	char *ipServer;
 
 	struct sockaddr_in server_addr;	//server address
-
-
 
 	Logger *log;
 };

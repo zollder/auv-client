@@ -1,5 +1,7 @@
 #include "src/communication/ClientThread.h"
 
+#include <syslog.h>
+
 #define ESC 27
 
 using namespace std;
@@ -7,9 +9,9 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-	printf("[KPI::MAIN] START\n");
+	syslog(LOG_NOTICE,"[KPI::MAIN] START");
 
-	ClientThread* clientThread = new ClientThread(5000, "192.168.10.32");
+	ClientThread* clientThread = new ClientThread(5000, "192.168.0.10");
 	clientThread->start();
 
     char key;
@@ -19,17 +21,17 @@ int main(int argc, char *argv[])
 
     }while(key != ESC);
 
-    printf("[KPI::MAIN]::Escape Character Triggered\n");
+    syslog(LOG_NOTICE,"[KPI::MAIN]::Escape Character Triggered");
     clientThread->flag=false;
 
     if( clientThread->stop() != 0 )
     {
-    	printf("[KPI::MAIN] failed stop\n");
+    	syslog(LOG_NOTICE,"[KPI::MAIN] failed stop");
     	clientThread->kill();
     }
 
     delete clientThread;
-    printf("[KPI::MAIN] END\n");
+    syslog(LOG_NOTICE,"[KPI::MAIN] END");
 
 
     return EXIT_SUCCESS;
