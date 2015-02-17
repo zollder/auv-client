@@ -94,7 +94,7 @@ void SocketClient::recvMsg()
 		{
 			recBuff[numBytes] = 0;
 
-			//Not necessary
+	//Not necessary
 	//		if(numBytes < 0)
 	//			log->error("[ERROR] Read Error");
 
